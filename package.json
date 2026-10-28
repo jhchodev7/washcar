@@ -1,0 +1,9 @@
+{
+  "name": "washcar",
+  "private": true,
+  "type": "module",
+  "description": "세차하면 다음날 비 오는 국룰을 피하는 세차일 추천 웹 앱",
+  "scripts": {
+    "test": "node --test"
+  }
+}

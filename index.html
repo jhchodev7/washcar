@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>세차 타이밍</title>
+    <meta name="description" content="세차하면 다음날 비 오는 국룰을 피하는 세차일 추천" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚿</text></svg>" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="head">
+        <div class="topbar">
+          <div class="place">
+            <span aria-hidden="true">📍</span>
+            <span id="place-name">위치 확인 중…</span>
+          </div>
+          <button id="change-place" class="btn btn--ghost" type="button">위치 변경</button>
+        </div>
+        <p id="status" class="status" role="status" hidden></p>
+      </header>
+
+      <section id="hero" aria-live="polite"></section>
+      <section id="today"></section>
+      <section class="days-section">
+        <h2 class="section-title">7일 세차 지수</h2>
+        <ol id="days" class="days"></ol>
+      </section>
+      <section id="detail"></section>
+
+      <footer class="footer">
+        날씨: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>
+        · 지역 검색: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>
+        · <span id="updated"></span>
+      </footer>
+    </main>
+
+    <dialog id="picker" class="picker">
+      <form id="search-form" class="picker-form">
+        <h2>위치 선택</h2>
+        <button id="use-gps" class="btn" type="button">📡 현재 위치 사용</button>
+        <div class="search-row">
+          <input id="search-input" type="search" placeholder="지역 이름 (예: 운양동, 강남구)" autocomplete="off" required />
+          <button class="btn" type="submit">검색</button>
+        </div>
+        <p id="search-status" class="muted"></p>
+        <ul id="search-results" class="search-results"></ul>
+        <button id="close-picker" class="btn btn--ghost" type="button">닫기</button>
+      </form>
+    </dialog>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
