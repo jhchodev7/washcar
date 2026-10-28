@@ -1,4 +1,5 @@
 import { getJson, buildUrl } from './http.js';
+import { CONFIG } from '../config.js';
 
 /**
  * @typedef {{ lat: number, lon: number, name: string }} Place
@@ -11,16 +12,27 @@ export function getCurrentPosition() {
       reject(new Error('이 브라우저는 위치 기능을 지원하지 않습니다'));
       return;
     }
+    // 브라우저 timeout 옵션은 권한 허용 이후부터 재므로, 팝업을 무시하거나
+    // 팝업을 못 띄우는 환경(VS Code 내장 브라우저 등)에서는 영원히 대기한다.
+    const timer = setTimeout(
+      () => reject(new Error('위치 확인이 지연되고 있습니다')),
+      CONFIG.geoTimeoutMs,
+    );
     navigator.geolocation.getCurrentPosition(
-      (pos) => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
-      (err) =>
+      (pos) => {
+        clearTimeout(timer);
+        resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude });
+      },
+      (err) => {
+        clearTimeout(timer);
         reject(
           new Error(
             err.code === err.PERMISSION_DENIED
               ? '위치 권한이 거부되었습니다'
               : '현재 위치를 가져올 수 없습니다',
           ),
-        ),
+        );
+      },
       { timeout: 10000, maximumAge: 10 * 60 * 1000 },
     );
   });

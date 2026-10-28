@@ -10,6 +10,10 @@ export const CONFIG = {
   washWindowHours: 3,
   /** 날씨 캐시 유효 시간 */
   cacheTtlMs: 60 * 60 * 1000,
+  /** 위치 요청 전체 제한 시간 (권한 팝업 대기 포함) */
+  geoTimeoutMs: 15000,
+  /** 위치를 못 얻고 저장된 위치도 없을 때 보여줄 지역 */
+  defaultPlace: { lat: 37.64, lon: 126.66, name: '김포' },
   /** 먼 날일수록 예보 신뢰도를 깎는 비율 (하루당) */
   confidenceDecayPerDay: 0.05,
   /** 모든 날이 이 점수 미만이면 "이번 주는 참으세요" */

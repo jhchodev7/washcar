@@ -34,9 +34,10 @@ async function start() {
       ui.renderStatus(`${err.message}. 마지막 위치로 보여드려요.`);
       await showPlace(saved, { keepStatus: true });
     } else {
-      ui.renderPlace('위치 없음');
-      ui.renderStatus(`${err.message}. 위치를 직접 선택해 주세요.`, true);
-      openPicker();
+      // 빈 화면 대신 기본 지역을 보여주고, '위치 변경'으로 바꾸게 한다.
+      const fallback = CONFIG.defaultPlace;
+      ui.renderStatus(`${err.message}. ${fallback.name} 기준으로 보여드려요. '위치 변경'으로 바꿀 수 있어요.`);
+      await showPlace(fallback, { keepStatus: true });
     }
   }
 }
